@@ -30,3 +30,29 @@ file in the large .bed to trim down non TEs and family and orders
 ### Index consensus.fasta
 > bwa index NAME.consensusTE.fasta
 
+## Create PPileUp File
+
+### Reformat Headers
+Because PoPoolationTE2 works with older fasta headers, newer headers need to be changed
+> gunzip NAME_R*.fq.gz
+
+>sed -i ‘s/Y/N/g’ NAME_R*.fq
+sed  -i ‘s/ 1:N:0:\(.*\)$/\#\1\/1/g’ NAME_R1.fq 
+sed -i 's/ 2:N:0:\(.*\)$/\#\1\/2/g' NAME_R2.fq  
+
+>gzip new_reform_NAME_R*.fq
+
+### Map .fq.gz files to a .sam file
+>mkdir map  
+bwa bwasw -t 3 NAME.consensusTE.fasta reform_NAME_R*.fq.gz >map/Name_R*.sam
+
+
+
+
+
+
+
+
+
+
+
