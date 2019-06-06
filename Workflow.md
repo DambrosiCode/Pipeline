@@ -31,6 +31,12 @@ file in the large .bed to trim down non TEs and family and orders
 > bwa index NAME.consensusTE.fasta
 
 ## Create PPileUp File
+### Split Large .fastq files
+Because the raw .fastqs have to be edited directly to work with PPTE2 it's often useful to split the large .fasta files into smaller files. This can be done a number of ways as long reads aren't split. For isntance 
+>pyfasta split -n 30 NAME.fastq
+splits .fasta files into n smaller files to work with. 
+
+Then split files can be worked on simultaneously using '&' in bash. 
 
 ### Reformat Headers
 Because PoPoolationTE2 works with older fasta headers, newer headers need to be changed
@@ -46,9 +52,14 @@ sed -i 's/ 2:N:0:\(.*\)$/\#\1\/2/g' NAME_R2.fq
 >mkdir map  
 bwa bwasw -t 3 NAME.consensusTE.fasta reform_NAME_R*.fq.gz >map/Name_R*.sam
 
+### Merge .sam files
+> Samtools merge <out.sam> NAME.clean.sort.bam NAME clean.sort.bam
 
+### Merge reformatted .fastq files
+> cat *_R*.fq.gz > NAME_*.fq.gz
 
-
+### Restore paired end information 
+> java -jar popte2.jar ppileup --bam NAME.clean.sort.bam --bam NAME2.clean.sort.bam --bam NAME3.clean.sort.bam --map-qual 15 --hier te-consensus.txt --output NAME_NAME2_NAME3.ppileup.gz
 
 
 
