@@ -42,8 +42,8 @@ Then split files can be worked on simultaneously using '&' in bash.
 Because PoPoolationTE2 works with older fasta headers, newer headers need to be changed
 > gunzip NAME_R*.fq.gz
 
->sed -i ‘s/Y/N/g’ NAME_R*.fq
-sed  -i ‘s/ 1:N:0:\(.*\)$/\#\1\/1/g’ NAME_R1.fq 
+>sed -i ‘s/Y/N/g’ NAME_R*.fq  
+sed  -i ‘s/ 1:N:0:\(.*\)$/\#\1\/1/g’ NAME_R1.fq  
 sed -i 's/ 2:N:0:\(.*\)$/\#\1\/2/g' NAME_R2.fq  
 
 >gzip new_reform_NAME_R*.fq
