@@ -18,7 +18,7 @@ with open('annotation.csv') as csvfile:
     for row in readCSV:
         te.append(row)
         
-f = open('gas.Acu1-4.te.hier.txt', 'w+')
+f = open('te.hier.txt', 'w+')
 f.write('id\tfamily\torder\n')
 for i in range(0, len(te)-1):
     for j in range(0, len(iden)-1):
