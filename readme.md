@@ -32,4 +32,4 @@ We can get rid of duplicates and manually add in family and order information th
 
 This then provides a template for the program. It will look for the id in the reference.csv *within* the name of each annotation in annotation.csv. Then, once found, it will add the respective family and order with tab delineation like PoPoolationTE2 requires for its hierarchy file.
 
-Output: hierarchy.txt
+Output: te.hier.txt
