@@ -52,15 +52,14 @@ sed -i 's/ 2:N:0:\(.*\)$/\#\1\/2/g' NAME_R2.fq
 >mkdir map  
 bwa bwasw -t 3 NAME.consensusTE.fasta reform_NAME_R*.fq.gz >map/Name_R*.sam
 
+### Restore Paired End information one file at a time
+> java -jar popte2.jar se2pe --fastq1 NAME_i_R1.fq.gz --fastq2 NAME_i_R2.fq.gz --bam1 NAME_i_R1.sam --bam2 NAME_i_R2.sam --sort --output NAME_i.te.bam
+
 ### Merge .sam files
-> Samtools merge <out.sam> NAME.clean.sort.bam NAME clean.sort.bam
+> Samtools merge NAME.te.merged.bam NAME_*.te.bam
 
-### Merge reformatted .fastq files
-> cat *_R*.fq.gz > NAME_*.fq.gz
-
-### Restore paired end information 
-> java -jar popte2.jar ppileup --bam NAME.clean.sort.bam --bam NAME2.clean.sort.bam --bam NAME3.clean.sort.bam --map-qual 15 --hier te-consensus.txt --output NAME_NAME2_NAME3.ppileup.gz
-
+### Generate ppileup file
+> java -jar popte2.jar ppileup --bam NAME.te.merged.bam --map-qual 15 --hier te-consensus.txt --output NAME.ppileup.gz
 
 
 
