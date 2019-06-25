@@ -27,7 +27,7 @@ then
   echo 'Which Read? '
   read i
 
-  qsub -v I=$i,POP=$pop '$v/map.pbs'
+  qsub -v I=$i,POP=$pop '$bashloc/map.pbs'
   
 elif [ "$script" = "merge" ]
 then
@@ -40,16 +40,20 @@ then
 elif [ "$script" = "restore" ]
 then
   qsub -v POP=$pop '$bashloc/restore.pbs'
+  
 elif [ "$script" = "gzip" ]
 then
   qsub -v POP=$pop '$bashloc/gzip.pbs'
+
 elif [ "$script" = "merge_fastqs" ]
 then
   qsub -v POP=$pop '$bashloc/merge_fastqs.pbs'
+
 elif [ "$script" = "rewrite" ]
 then
   qsub -v POP=$pop '$bashloc/rewrite.pbs'
-  elif [ "$script" = "ppileup" ]
+
+elif [ "$script" = "ppileup" ]
 then
   qsub -v POP=$pop '$bashloc/ppileup.pbs'
 fi
