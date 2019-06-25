@@ -27,23 +27,23 @@ then
   echo 'Which Read? '
   read i
 
-  qsub -v I=$i,POP=$pop '$bashloc/map.pbs'
+  qsub -v I=$i,POP=$pop,fastqloc=$fastqloc '$bashloc/map.pbs'
   
 elif [ "$script" = "merge" ]
 then
-  qsub -v I=$i,POP=$pop '$bashloc/merge.pbs'
+  qsub -v I=$i,POP=$pop,fastqloc=$fastqloc '$bashloc/merge.pbs'
   
 elif [ "$script" = "split" ]
 then
-  qsub -v POP=$pop '$bashloc/split.pbs'
+  qsub -v POP=$pop,fastqloc=$fastqloc '$bashloc/split.pbs'
 
 elif [ "$script" = "restore" ]
 then
-  qsub -v POP=$pop '$bashloc/restore.pbs'
+  qsub -v POP=$pop,fastqloc=$fastqloc '$bashloc/restore.pbs'
   
 elif [ "$script" = "gzip" ]
 then
-  qsub -v POP=$pop '$bashloc/gzip.pbs'
+  qsub -v POP=$pop,fastqloc=$fastqloc '$bashloc/gzip.pbs'
 
 elif [ "$script" = "merge_fastqs" ]
 then
@@ -51,9 +51,9 @@ then
 
 elif [ "$script" = "rewrite" ]
 then
-  qsub -v POP=$pop '$bashloc/rewrite.pbs'
+  qsub -v POP=$pop,fastqloc=$fastqloc '$bashloc/rewrite.pbs'
 
 elif [ "$script" = "ppileup" ]
 then
-  qsub -v POP=$pop '$bashloc/ppileup.pbs'
+  qsub -v POP=$pop,fastqloc=$fastqloc '$bashloc/ppileup.pbs'
 fi
