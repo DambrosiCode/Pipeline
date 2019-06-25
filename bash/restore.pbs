@@ -1,0 +1,19 @@
+#!/bin/bash 
+
+#PBS -V
+#PBS -l nodes=1:ppn=28,walltime=04:00:00
+#PBS -N split
+#PBS -q short
+
+module load shared
+module load anaconda/2
+
+cd $fastqloc/Sample_"$POP
+
+mkdir fastq
+
+name=$(echo *L001_001.R1.fastq.gz 2|cut -d . -f 1)
+python split_fasta.py $name . $POP 10000000
+
+name=$(echo *L001_001.R1.fastq.gz 2|cut -d . -f 1)
+python split_fasta.py $name . $POP 10000000
