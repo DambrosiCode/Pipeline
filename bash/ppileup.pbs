@@ -5,10 +5,10 @@
 #PBS -q long 
 
 
-cd "/gpfs/scratch/madambrosio/PoPoolation/Lake_fastqs/Sample_"$POP"/fastq/map/te"
+cd "$fastqloc/Sample_"$POP"/fastq/map/merged"
 
-java -jar "/gpfs/home/madambrosio/PopPoolationTE2/popte2.jar" ppileup --bam $POP"_te.merged.bam" --map-qual 15 --hier "/gpfs/home/madambrosio/gasAcu1-4.tehier.txt" --output /gpfs/scratch/madambrosio/PoPoolation/ppileup_files/$POP.ppileup
+java -jar popte2.jar ppileup --bam $POP"_te.merged.bam" --map-qual 15 --hier "tehier.txt" --output ~/ppileup_files/$POP.ppileup
 
 wait
 
-sed -i "/$POP.*$/ s/$/ ppileupped/" "/gpfs/home/madambrosio/bin/status.txt"
+sed -i "/$POP.*$/ s/$/ ppileupped/" "$batchloc/status.txt"

@@ -1,11 +1,12 @@
 #!/bin/bash
 
+batchloc="C:/Documents/Pipeline/bash/"
+fastqloc="C:/Documents/fastqs/"
 
 if [ ! -f status.txt ]; then
   echo "POP|Split|Rewrite|Map|Restore|Merge|Ppileup" > status.txt
   ls "/gpfs/scratch/madambrosio/PoPoolation/Lake_fastqs/"|cut -d _ -f 2 >> status.txt
 fi
-
 
 while [ ! -d "/gpfs/scratch/madambrosio/PoPoolation/Lake_fastqs/Sample_$pop/" ]; do
   cat "/gpfs/home/madambrosio/bin/status.txt"
@@ -29,33 +30,29 @@ then
   echo 'Which Read? '
   read i
 
-  qsub -v I=$i,POP=$pop '/gpfs/home/madambrosio/bin/map.pbs'
-  
+  qsub -v I=$i,POP=$pop,fastq=$fastqloc "/$batchloc/map.pbs"
+
 elif [ "$script" = "merge" ]
 then
-  qsub -v I=$i,POP=$pop '/gpfs/home/madambrosio/bin/merge.pbs'
-  
+  qsub -v I=$i,POP=$pop,fastq=$fastqloc "/$batchloc//merge.pbs"
+
 elif [ "$script" = "split" ]
 then
-  qsub -v POP=$pop '/gpfs/home/madambrosio/bin/split.pbs'
+  qsub -v POP=$pop,fastq=$fastqloc "/$batchloc//split.pbs
 
 elif [ "$script" = "restore" ]
 then
-  qsub -v POP=$pop '/gpfs/home/madambrosio/bin/restore.pbs'
-  
-elif [ "$script" = "gzip" ]
-then
-  qsub -v POP=$pop '/gpfs/home/madambrosio/bin/gzip.pbs'
+  qsub -v POP=$pop,fastq=$fastqloc "/$batchloc//restore.pbs"
 
-elif [ "$script" = "merge_fastqs" ]
+elif
 then
-  qsub -v POP=$pop '/gpfs/home/madambrosio/bin/merge_fastqs.pbs'
+  qsub -v POP=$pop,fastq=$fastqloc "/$batchloc//merge_fastqs.pbs"
 
 elif [ "$script" = "rewrite" ]
 then
-  qsub -v POP=$pop '/gpfs/home/madambrosio/bin/rewrite.pbs'
+  qsub -v POP=$pop,fastq=$fastqloc "/$batchloc//rewrite.pbs"
 
 elif [ "$script" = "ppileup" ]
 then
-  qsub -v POP=$pop '/gpfs/home/madambrosio/bin/ppileup.pbs'
-fi
+  qsub -v POP=$pop,fastq=$fastqloc "/$batchloc//ppileup.pbs"
+fi 

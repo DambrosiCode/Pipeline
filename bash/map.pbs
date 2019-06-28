@@ -5,7 +5,7 @@
 #PBS -q long 
 
 
-cd "/gpfs/scratch/madambrosio/PoPoolation/Lake_fastqs/Sample_"$POP"/fastq"
+cd "$fastqloc/Sample_"$POP"/fastq"
 mkdir map
 
 module load shared
@@ -13,9 +13,9 @@ module load torque
 module load anaconda/2
 module load gnu-parallel
 
-parallel bwa bwasw -t 3 "/gpfs/scratch/madambrosio/gasAcu1-4/gasAcu1-4.consensusTE.fasta" {1} ">" map/{.}.sam ::: *R$I*
+parallel bwa bwasw -t 3 "$fastqloc/consensus.te.fasta" {1} ">" map/{.}.sam ::: *R$I*
 
 
 wait
 
-sed -i "/$POP.*$/ s/$/ merged/" "/gpfs/home/madambrosio/bin/status.txt"
+sed -i "/$POP.*$/ s/$/ merged/" "$batchloc/status.txt"

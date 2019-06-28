@@ -6,15 +6,15 @@
 
 module load shared
 
-cd "/gpfs/scratch/madambrosio/PoPoolation/Lake_fastqs/Sample_$POP/fastq/map/"
+cd "$fastqloc/Sample_$POP/fastq/map/"
 
 mkdir merged
 
 END=$(ls -l *R$I* | egrep -c '^-')
 for ((i=1;i<=END;i++)); do
-  java -jar "/gpfs/home/madambrosio/PopPoolationTE2/popte2.jar" se2pe --fastq1 ../$POP"_split_"$i"_R1.fq" --fastq2 ../$POP"_split_"$i"_R2.fq" --bam1 $POP"_split_"$i"_R1.sam" --bam2 $POP"_split_"$i"_R2.sam" --sort --output merged/$POP_$i.te.bam 
+  java -jar popte2.jar se2pe --fastq1 ../$POP"_split_"$i"_R1.fq" --fastq2 ../$POP"_split_"$i"_R2.fq" --bam1 $POP"_split_"$i"_R1.sam" --bam2 $POP"_split_"$i"_R2.sam" --sort --output merged/$POP_$i.te.bam 
 done
 
 wait
 
-sed -i "/$POP.*$/ s/$/ restored/" "/gpfs/home/madambrosio/bin/status.txt"
+sed -i "/$POP.*$/ s/$/ restored/" "$batchloc/status.txt"

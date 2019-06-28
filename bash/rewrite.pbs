@@ -6,7 +6,7 @@
 #PBS -q short
 
 
-cd "/gpfs/scratch/madambrosio/PoPoolation/Lake_fastqs/Sample_"$POP"/fastq/"
+cd "$fastqloc/Sample_"$POP"/fastq/"
 
 module load shared
 module load torque
@@ -18,4 +18,4 @@ parallel 'sed -i "s/ 2:.:0:\(.*\)$/\#\1\/2/g"' {1} ::: *R2*
 
 wait
 
-sed -i "/$POP.*$/ s/$/ rewrote/" "/gpfs/home/madambrosio/bin/status.txt"
+sed -i "/$POP.*$/ s/$/ rewrote/" "$batchloc/status.txt"
