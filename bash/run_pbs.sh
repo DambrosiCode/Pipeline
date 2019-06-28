@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#replace with bash script location 
+#replace with batch script location 
 bashloc=/C:/usr/documents/bash 
 
 #replace with location of fastq files
