@@ -5,7 +5,9 @@ Due to the large files and vast amount of computational data required for this k
 
 Running the script will prompt the user to define a population (no file extensions), and then which script the would like to run on said population (again with no file extensions). For instance if they are mapping the fastq files for population H-2001 they would specify 
 >H-2001  
+
 and then  
+
 >map
 
 Running the map.pbs script will also prompt which read (1 or 2) the user would like to map. 
