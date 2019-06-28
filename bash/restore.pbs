@@ -1,19 +1,20 @@
-#!/bin/bash 
+#!/bin/bash
 
-#PBS -V
-#PBS -l nodes=1:ppn=28,walltime=04:00:00
-#PBS -N split
-#PBS -q short
+#PBS -l nodes=1:ppn=28,walltime=08:00:00
+#PBS -N restore
+#PBS -q long 
 
 module load shared
-module load anaconda/2
 
-cd $fastqloc/Sample_"$POP
+cd "/gpfs/scratch/madambrosio/PoPoolation/Lake_fastqs/Sample_$POP/fastq/map/"
 
-mkdir fastq
+mkdir merged
 
-name=$(echo *L001_001.R1.fastq.gz 2|cut -d . -f 1)
-python split_fasta.py $name . $POP 10000000
+END=$(ls -l *R$I* | egrep -c '^-')
+for ((i=1;i<=END;i++)); do
+  java -jar "/gpfs/home/madambrosio/PopPoolationTE2/popte2.jar" se2pe --fastq1 ../$POP"_split_"$i"_R1.fq" --fastq2 ../$POP"_split_"$i"_R2.fq" --bam1 $POP"_split_"$i"_R1.sam" --bam2 $POP"_split_"$i"_R2.sam" --sort --output merged/$POP_$i.te.bam 
+done
 
-name=$(echo *L001_001.R1.fastq.gz 2|cut -d . -f 1)
-python split_fasta.py $name . $POP 10000000
+wait
+
+sed -i "/$POP.*$/ s/$/ restored/" "/gpfs/home/madambrosio/bin/status.txt"

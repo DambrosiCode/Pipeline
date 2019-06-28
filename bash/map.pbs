@@ -1,16 +1,21 @@
 #!/bin/bash
 
-#PBS -l nodes=1:ppn=28, walltime=04:00:00
+#PBS -l nodes=1:ppn=28,walltime=08:00:00
 #PBS -N map
 #PBS -q long 
 
 
-cd "$fastqloc/Sample_"$POP"/fastq"
+cd "/gpfs/scratch/madambrosio/PoPoolation/Lake_fastqs/Sample_"$POP"/fastq"
 mkdir map
 
 module load shared
 module load torque
-module load anaconda/2 #for bwa
+module load anaconda/2
 module load gnu-parallel
 
 parallel bwa bwasw -t 3 "/gpfs/scratch/madambrosio/gasAcu1-4/gasAcu1-4.consensusTE.fasta" {1} ">" map/{.}.sam ::: *R$I*
+
+
+wait
+
+sed -i "/$POP.*$/ s/$/ merged/" "/gpfs/home/madambrosio/bin/status.txt"

@@ -1,0 +1,14 @@
+#!/bin/bash 
+
+#PBS -l nodes=1:ppn=28,walltime=08:00:00
+#PBS -N pileup
+#PBS -q long 
+
+
+cd "/gpfs/scratch/madambrosio/PoPoolation/Lake_fastqs/Sample_"$POP"/fastq/map/te"
+
+java -jar "/gpfs/home/madambrosio/PopPoolationTE2/popte2.jar" ppileup --bam $POP"_te.merged.bam" --map-qual 15 --hier "/gpfs/home/madambrosio/gasAcu1-4.tehier.txt" --output /gpfs/scratch/madambrosio/PoPoolation/ppileup_files/$POP.ppileup
+
+wait
+
+sed -i "/$POP.*$/ s/$/ ppileupped/" "/gpfs/home/madambrosio/bin/status.txt"

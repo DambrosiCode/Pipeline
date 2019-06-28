@@ -1,0 +1,25 @@
+#!/bin/bash 
+
+#PBS -V
+#PBS -l nodes=1:ppn=28,walltime=02:00:00
+#PBS -N gzip
+#PBS -q short
+
+
+cd /gpfs/scratch/madambrosio/PoPoolation/Lake_fastqs/Sample_$POP/fastq/
+
+module load shared 
+
+module load shared
+module load torque
+module load anaconda/2
+module load gnu-parallel
+
+mkdir map
+
+parallel gzip {i} ::: *
+
+wait
+
+sed -i "/$POP.*$/ s/$/ gzipped/" "/gpfs/home/madambrosio/bin/status.txt"
+

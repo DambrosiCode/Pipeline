@@ -5,10 +5,14 @@
 #PBS -q short 
 
 
-cd "$fastqloc/Sample_"$POP"/fastq/map/te"
+cd "/gpfs/scratch/madambrosio/PoPoolation/Lake_fastqs/Sample_"$POP"/fastq/map/merged"
 
 module load shared
 module load torque
 module load anaconda/2
 
 samtools merge $POP"_te.merged.bam" *
+
+wait
+
+sed -i "/$POP.*$/ s/$/ merged/" "/gpfs/home/madambrosio/bin/status.txt"
