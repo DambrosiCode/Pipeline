@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#PBS -V
+#PBS -l nodes=1:ppn=28,walltime=02:00:00
+#PBS -N rewrite
+#PBS -q short
+
+
+cd $fastqloc"/Sample_"$POP"/fastq/"
+
+module load shared
+module load torque
+module load anaconda/2
+module load gnu-parallel
+
+parallel 'sed -i "s/ 1:.:0:\(.*\)$/\#\1\/1/g"' {1} ::: *R1*
+parallel 'sed -i "s/ 2:.:0:\(.*\)$/\#\1\/2/g"' {1} ::: *R2*
