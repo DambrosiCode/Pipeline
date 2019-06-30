@@ -34,25 +34,28 @@ then
 
 elif [ "$script" = "merge" ]
 then
-  qsub -v I=$i,POP=$pop,fastq=$fastqloc "/$batchloc//merge.pbs"
+  qsub -v I=$i,POP=$pop,fastq=$fastqloc "/$batchloc/merge.pbs"
 
 elif [ "$script" = "split" ]
 then
-  qsub -v POP=$pop,fastq=$fastqloc "/$batchloc//split.pbs
+  echo 'Which lane?'
+  read lane
+
+  qsub -v POP=$pop,fastq=$fastqloc,LANE=$lane "/$batchloc/split.pbs
 
 elif [ "$script" = "restore" ]
 then
-  qsub -v POP=$pop,fastq=$fastqloc "/$batchloc//restore.pbs"
+  qsub -v POP=$pop,fastq=$fastqloc "/$batchloc/restore.pbs"
 
 elif
 then
-  qsub -v POP=$pop,fastq=$fastqloc "/$batchloc//merge_fastqs.pbs"
+  qsub -v POP=$pop,fastq=$fastqloc "/$batchloc/merge_fastqs.pbs"
 
 elif [ "$script" = "rewrite" ]
 then
-  qsub -v POP=$pop,fastq=$fastqloc "/$batchloc//rewrite.pbs"
+  qsub -v POP=$pop,fastq=$fastqloc "/$batchloc/rewrite.pbs"
 
 elif [ "$script" = "ppileup" ]
 then
-  qsub -v POP=$pop,fastq=$fastqloc "/$batchloc//ppileup.pbs"
+  qsub -v POP=$pop,fastq=$fastqloc "/$batchloc/ppileup.pbs"
 fi 
