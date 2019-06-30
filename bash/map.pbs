@@ -4,6 +4,7 @@
 #PBS -N map
 #PBS -q long 
 
+sed -i "/$POP.*$/ s/$/ running.../" "/$batchloc/status.txt"
 
 cd "$fastqloc/Sample_"$POP"/fastq"
 mkdir map
@@ -18,4 +19,4 @@ parallel bwa bwasw -t 3 "$fastqloc/consensus.te.fasta" {1} ">" map/{.}.sam ::: *
 
 wait
 
-sed -i "/$POP.*$/ s/$/ merged/" "$batchloc/status.txt"
+sed -i "/$POP.*$/ s/ running.../ merged/" "/$batchloc/status.txt"

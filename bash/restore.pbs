@@ -4,6 +4,9 @@
 #PBS -N restore
 #PBS -q long 
 
+sed -i "/$POP.*$/ s/$/ running.../" "/$batchloc/status.txt"
+
+
 module load shared
 
 cd "$fastqloc/Sample_$POP/fastq/map/"
@@ -17,4 +20,4 @@ done
 
 wait
 
-sed -i "/$POP.*$/ s/$/ restored/" "$batchloc/status.txt"
+sed -i "/$POP.*$/ s/ running.../ restored/" "/$batchloc/status.txt"

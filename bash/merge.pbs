@@ -4,6 +4,8 @@
 #PBS -N merge
 #PBS -q short 
 
+sed -i "/$POP.*$/ s/$/ running.../" "/$batchloc/status.txt"
+
 
 cd "$fastqloc/Sample_"$POP"/fastq/map/merged"
 
@@ -15,4 +17,4 @@ samtools merge $POP"_te.merged.bam" *
 
 wait
 
-sed -i "/$POP.*$/ s/$/ merged/" "$batchloc/status.txt"
+sed -i "/$POP.*$/ s/ running.../ merged/" "/$batchloc/status.txt"

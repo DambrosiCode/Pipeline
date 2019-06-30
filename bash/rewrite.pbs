@@ -5,6 +5,8 @@
 #PBS -N rewrite
 #PBS -q short
 
+sed -i "/$POP.*$/ s/$/ running.../" "/$batchloc/status.txt"
+
 
 cd "$fastqloc/Sample_"$POP"/fastq/"
 
@@ -18,4 +20,4 @@ parallel 'sed -i "s/ 2:.:0:\(.*\)$/\#\1\/2/g"' {1} ::: *R2*
 
 wait
 
-sed -i "/$POP.*$/ s/$/ rewrote/" "$batchloc/status.txt"
+sed -i "/$POP.*$/ s/ running.../ rewrote/" "/$batchloc/status.txt"

@@ -5,6 +5,8 @@
 #PBS -N split 
 #PBS -q short
 
+sed -i "/$POP.*$/ s/$/ running.../" "/$batchloc/status.txt"
+
 module load shared
 module load anaconda/2
 
@@ -17,4 +19,4 @@ python "/gpfs/home/madambrosio/bin/split_fasta.py" $name . $POP 10000000
 wait
 mv *fq* /fastq
 wait
-sed -i '/$POP.*$/ s/$/ split /' "/$batchloc/status.txt"
+sed -i '/$POP.*$/ s/ running.../ split /' "/$batchloc/status.txt"

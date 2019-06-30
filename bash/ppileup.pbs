@@ -4,6 +4,8 @@
 #PBS -N pileup
 #PBS -q long 
 
+sed -i "/$POP.*$/ s/$/ running.../" "/$batchloc/status.txt"
+
 
 cd "$fastqloc/Sample_"$POP"/fastq/map/merged"
 
@@ -11,4 +13,4 @@ java -jar popte2.jar ppileup --bam $POP"_te.merged.bam" --map-qual 15 --hier "te
 
 wait
 
-sed -i "/$POP.*$/ s/$/ ppileupped/" "$batchloc/status.txt"
+sed -i "/$POP.*$/ s/ running.../ ppileupped/" "/$batchloc/status.txt"
