@@ -1,5 +1,3 @@
-This is a repository to keep track of my pipeline, as well as necessary scripts for my master's thesis
-
 # run_pbs.sh
 Due to the large files and vast amount of computational data required for this kind of data processing, nearly everything is run on a local supercomputer cluster through portable batch scripts (pbs). To make things easier I consolidated the necessary .pbs scripts to be run with through one shell script. When setting up the user simply has to specify the location of the directory that holds the folders for each fastq, and the location of where ever they're downloading the rest of the pbs.
 
