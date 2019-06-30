@@ -7,7 +7,7 @@
 
 cd "$fastqloc/Sample_"$POP"/fastq/map/merged"
 
-java -jar popte2.jar ppileup --bam $POP"_te.merged.bam" --map-qual 15 --hier "tehier.txt" --output ~/ppileup_files/$POP.ppileup
+java -jar popte2.jar ppileup --bam $POP"_te.merged.bam" --map-qual 15 --hier "tehier.txt" --output ~/ppileup_files/$POP.ppileup.gz
 
 wait
 
