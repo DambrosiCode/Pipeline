@@ -21,6 +21,3 @@ mv *fq* /fastq
 wait
 <<<<<<< HEAD
 sed -i '/$POP.*$/ s/ running.../ split /' "/$batchloc/status.txt"
-=======
-sed -i '/$POP.*$/ s/$/ split /' "/$batchloc/status.txt"
->>>>>>> fe3acdb57fe1d39b0afbdf7098c5ebf7a645d8de
