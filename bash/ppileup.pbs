@@ -13,8 +13,4 @@ java -jar popte2.jar ppileup --bam $POP"_te.merged.bam" --map-qual 15 --hier "te
 
 wait
 
-<<<<<<< HEAD
 sed -i "/$POP.*$/ s/ running.../ ppileupped/" "/$batchloc/status.txt"
-=======
-sed -i "/$POP.*$/ s/$/ ppileupped/" "$batchloc/status.txt"
->>>>>>> fe3acdb57fe1d39b0afbdf7098c5ebf7a645d8de
