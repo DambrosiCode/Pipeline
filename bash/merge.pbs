@@ -6,14 +6,14 @@
 
 sed -i "/$POP.*$/ s/$/ running.../" "/$batchloc/status.txt"
 
-
+mkdir $fastloc/bams/Sample_"${POP::-5}"_bams/
 cd "$fastqloc/Sample_"$POP"/fastq/map/merged"
 
 module load shared
 module load torque
 module load anaconda/2
 
-samtools merge $POP"_te.merged.bam" *
+samtools merge $POP"_te.merged.bam" * > mkdir $fastloc/bams/Sample_"${POP::-5}"_bams/
 
 wait
 
