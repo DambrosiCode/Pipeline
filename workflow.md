@@ -59,7 +59,43 @@ bwa bwasw -t 3 NAME.consensusTE.fasta reform_NAME_R*.fq.gz >map/Name_R*.sam
 > Samtools merge NAME.te.merged.bam NAME_*.te.bam
 
 ### Generate ppileup file
-> java -jar popte2.jar ppileup --bam NAME.te.merged.bam --map-qual 15 --hier te-consensus.txt --output NAME.ppileup.gz
+The ppileup file combines multiple bams to compare frequencies.
+> java -jar popte2.jar ppileup --bam NAME_1.te.merged.bam --bam NAME_2.te.merged.bam --map-qual 15 --hier te-consensus.txt --output NAME.ppileup.gz
+
+## Generate Frequency Data
+
+### Coverage stats
+TE detection is biased based on coverage, where a higher coverage gives more accurate TE detection, so it is often necessary to subsample physical coverage, however this also results in a loss of data. PoPoolationTE2 provides statistics to determine to which coverage to downsample to. 
+> java -jar popte2.jar stat-coverage --ppileup NAME.ppileup.gz --output NAME.coverage.statistics
+
+This outputs a text file format
+>joint	1	3645153	0	0.00  
+>joint	2	3325345	3645153	0.87  
+>joint	3	3561583	6970498	1.67  
+>joint	4	4010380	10532081	2.52  
+>joint	5	4551360	14542461	3.47  
+>joint	6	5144029	19093821	4.56  
+>joint	7	5701741	24237850	5.79  
+>joint	8	6258252	29939591	7.15  
+>joint	9	6814709	36197843	8.65  
+>joint	10	7350712	43012552	10.28 
+
+* col1: sample ID from the ppileup file, e.g. 1 means the first sample in the ppileup; joint means the minimum over all samples
+* col2: the coverage
+* col3: number of bases having this coverage (for joint: number of bases having at least this coverage among all samples)
+* col4: cumulative value of col3
+* col5: fraction of sites in the genome having the given or a lower coverage; NOTE for joint this column can be interpreted as the fraction of sites that will be lost when subsampling the coverage to the value given in col2
+
+### Subsample
+The ppileup file can be subsampled to the desired coverage with PoPoolationTE2's subsample function
+>java -jar popte2.jar subsamplePpileup --ppileup NAME.ppileup.gz" --target-coverage COV --output NAME.ssCOV.ppileup.gz
+
+## Identify Signatures
+>java -jar popte2.jar identifySignatures --ppileup NAME.ssCOV.ppileup.gz --mode joint --output NAME.ssCOV.signatures --min-count 2 --signature-window minimumSampleMedian --min-valley minimumSampleMedian
+
+## Generate Frequency
+java -jar popte2.jar pairupSignatures --signature COV.ssCOV.freqsig --ref-genome NAME.consensusTE.fasta --hier NAME.tehier.txt" --min-distance -200 --max-distance 300 --output NAME.ssCOV.teinsertions
+
 
 
 
